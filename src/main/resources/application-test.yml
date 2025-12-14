@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:loopins_core_test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+
+  flyway:
+    enabled: false
+
+fulfillment:
+  service:
+    url: http://localhost:8081
+    api-key: test-api-key
+
+service:
+  api-key: test-service-key
+
