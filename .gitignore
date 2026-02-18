@@ -1,0 +1,15 @@
+# Environment
+.env
+
+# Build output
+target/
+
+# IntelliJ
+.idea/
+*.iml
+
+# AI / tools
+.ai/
+
+# OS
+.DS_Store
