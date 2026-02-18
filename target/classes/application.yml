@@ -14,6 +14,7 @@ spring:
     show-sql: false
     properties:
       hibernate:
+        ddl-auto: update
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
@@ -36,6 +37,15 @@ fulfillment:
 # Service-to-Service Security
 service:
   api-key: ${SERVICE_API_KEY:core-service-secret-key}
+
+# Midtrans Payment Gateway Configuration
+midtrans:
+  server-key: ${MIDTRANS_SERVER_KEY:your-server-key}
+  client-key: ${MIDTRANS_CLIENT_KEY:your-client-key}
+  is-production: ${MIDTRANS_IS_PRODUCTION:false}
+  merchant-id: ${MIDTRANS_MERCHANT_ID:your-merchant-id}
+  # Callback URL for payment notifications
+  callback-url: ${MIDTRANS_CALLBACK_URL:http://localhost:8080/api/payments/callback}
 
 # Resilience4j Configuration
 resilience4j:

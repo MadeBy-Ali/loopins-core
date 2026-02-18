@@ -26,8 +26,18 @@ public class Order {
     private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
+
+    // Guest customer info (for guest checkout)
+    @Column(name = "guest_email")
+    private String guestEmail;
+
+    @Column(name = "guest_name")
+    private String guestName;
+
+    @Column(name = "guest_phone", length = 50)
+    private String guestPhone;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
@@ -137,6 +147,12 @@ public class Order {
         return this.status == OrderStatus.PAYMENT_PENDING;
     }
 
+    public boolean canInitiatePayment() {
+        return this.status == OrderStatus.DRAFT
+            || this.status == OrderStatus.CREATED
+            || this.status == OrderStatus.PAYMENT_FAILED;
+    }
+
     public boolean canBeCancelled() {
         return this.status == OrderStatus.DRAFT
             || this.status == OrderStatus.CREATED
@@ -148,6 +164,22 @@ public class Order {
         return this.status == OrderStatus.PAID
             || this.status == OrderStatus.SHIPPED
             || this.status == OrderStatus.COMPLETED;
+    }
+
+    public boolean isGuestOrder() {
+        return user == null && guestEmail != null;
+    }
+
+    public boolean isUserOrder() {
+        return user != null;
+    }
+
+    public String getCustomerEmail() {
+        return user != null ? user.getEmail() : guestEmail;
+    }
+
+    public String getCustomerName() {
+        return user != null ? user.getUsername() : guestName;
     }
 }
 

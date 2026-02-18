@@ -74,10 +74,35 @@ public class CartController {
      * Gets active cart for a user.
      */
     @GetMapping("/user/{userId}")
+    @Operation(summary = "Get active cart by user ID", description = "Retrieves the active cart for a logged-in user")
     public ResponseEntity<ApiResponse<CartResponse>> getActiveCartByUser(@PathVariable Long userId) {
         log.info("GET /carts/user/{}", userId);
         CartResponse cart = cartService.getActiveCartByUserId(userId);
         return ResponseEntity.ok(ApiResponse.success(cart));
+    }
+
+    /**
+     * Gets active cart for a guest session.
+     */
+    @GetMapping("/session/{sessionId}")
+    @Operation(summary = "Get active cart by session ID", description = "Retrieves the active cart for a guest/anonymous user")
+    public ResponseEntity<ApiResponse<CartResponse>> getActiveCartBySession(@PathVariable String sessionId) {
+        log.info("GET /carts/session/{}", sessionId);
+        CartResponse cart = cartService.getActiveCartBySessionId(sessionId);
+        return ResponseEntity.ok(ApiResponse.success(cart));
+    }
+
+    /**
+     * Merges guest cart to user cart when user logs in.
+     */
+    @PostMapping("/merge")
+    @Operation(summary = "Merge guest cart to user cart", description = "Merges items from a guest cart into user cart when user logs in")
+    public ResponseEntity<ApiResponse<CartResponse>> mergeCart(
+            @RequestParam String sessionId,
+            @RequestParam Long userId) {
+        log.info("POST /carts/merge - session: {}, user: {}", sessionId, userId);
+        CartResponse cart = cartService.mergeGuestCartToUser(sessionId, userId);
+        return ResponseEntity.ok(ApiResponse.success(cart, "Guest cart merged successfully"));
     }
 
     /**

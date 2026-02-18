@@ -29,16 +29,34 @@ public class CartService {
     private final CartMapper cartMapper;
 
     /**
-     * Creates a new cart for a user or returns existing active cart.
+     * Creates a new cart for a user or guest, or returns existing active cart.
      */
     @Transactional
     public CartResponse createCart(CreateCartRequest request) {
-        log.info("Creating cart for user: {}", request.getUserId());
+        // Guest cart
+        if (request.getSessionId() != null) {
+            log.info("Creating guest cart for session: {}", request.getSessionId());
+            return cartRepository.findActiveCartBySessionId(request.getSessionId())
+                    .map(existingCart -> {
+                        log.info("Returning existing guest cart: {}", existingCart.getId());
+                        return cartMapper.toResponse(existingCart);
+                    })
+                    .orElseGet(() -> {
+                        Cart newCart = Cart.builder()
+                                .sessionId(request.getSessionId())
+                                .status(CartStatus.ACTIVE)
+                                .build();
+                        Cart savedCart = cartRepository.save(newCart);
+                        log.info("Created new guest cart: {}", savedCart.getId());
+                        return cartMapper.toResponse(savedCart);
+                    });
+        }
 
+        // User cart
+        log.info("Creating cart for user: {}", request.getUserId());
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", request.getUserId()));
 
-        // Check if user already has an active cart
         return cartRepository.findActiveCartByUserId(request.getUserId())
                 .map(existingCart -> {
                     log.info("Returning existing active cart: {}", existingCart.getId());
@@ -75,6 +93,76 @@ public class CartService {
         Cart cart = cartRepository.findActiveCartByUserId(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Active cart not found for user: " + userId));
         return cartMapper.toResponse(cart);
+    }
+
+    /**
+     * Gets the active cart for a guest session.
+     */
+    @Transactional(readOnly = true)
+    public CartResponse getActiveCartBySessionId(String sessionId) {
+        log.debug("Fetching active cart for session: {}", sessionId);
+        Cart cart = cartRepository.findActiveCartBySessionId(sessionId)
+                .orElseThrow(() -> new ResourceNotFoundException("Active cart not found for session: " + sessionId));
+        return cartMapper.toResponse(cart);
+    }
+
+    /**
+     * Merges a guest cart into a user cart when user logs in.
+     */
+    @Transactional
+    public CartResponse mergeGuestCartToUser(String sessionId, Long userId) {
+        log.info("Merging guest cart (session: {}) to user: {}", sessionId, userId);
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+
+        // Get guest cart
+        Cart guestCart = cartRepository.findActiveCartBySessionId(sessionId)
+                .orElse(null);
+
+        if (guestCart == null || guestCart.isEmpty()) {
+            log.info("No guest cart to merge, returning or creating user cart");
+            return createCart(CreateCartRequest.builder().userId(userId).build());
+        }
+
+        // Get or create user cart
+        Cart userCart = cartRepository.findActiveCartByUserId(userId)
+                .orElseGet(() -> {
+                    Cart newCart = Cart.builder()
+                            .user(user)
+                            .status(CartStatus.ACTIVE)
+                            .build();
+                    return cartRepository.save(newCart);
+                });
+
+        // Merge items from guest cart to user cart
+        for (CartItem guestItem : guestCart.getItems()) {
+            CartItem existingItem = userCart.getItems().stream()
+                    .filter(item -> item.getProductId().equals(guestItem.getProductId()))
+                    .findFirst()
+                    .orElse(null);
+
+            if (existingItem != null) {
+                existingItem.increaseQuantity(guestItem.getQuantity());
+            } else {
+                CartItem newItem = CartItem.builder()
+                        .productId(guestItem.getProductId())
+                        .productName(guestItem.getProductName())
+                        .unitPrice(guestItem.getUnitPrice())
+                        .quantity(guestItem.getQuantity())
+                        .build();
+                userCart.addItem(newItem);
+            }
+        }
+
+        // Mark guest cart as checked out (or delete it)
+        guestCart.markAsCheckedOut();
+        cartRepository.save(guestCart);
+
+        // Save merged user cart
+        Cart savedCart = cartRepository.save(userCart);
+        log.info("Guest cart merged successfully. User cart now has {} items", savedCart.getTotalItemCount());
+        return cartMapper.toResponse(savedCart);
     }
 
     /**

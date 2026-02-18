@@ -3,7 +3,7 @@
 
 -- Users table
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     username VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     role VARCHAR(50) NOT NULL DEFAULT 'CUSTOMER',
@@ -13,8 +13,8 @@ CREATE TABLE users (
 
 -- Cart table
 CREATE TABLE cart (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL REFERENCES users(id),
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL REFERENCES users(id),
     status VARCHAR(50) NOT NULL DEFAULT 'ACTIVE',
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -23,8 +23,8 @@ CREATE TABLE cart (
 
 -- Cart items table
 CREATE TABLE cart_item (
-    id SERIAL PRIMARY KEY,
-    cart_id INTEGER NOT NULL REFERENCES cart(id) ON DELETE CASCADE,
+    id BIGSERIAL PRIMARY KEY,
+    cart_id BIGINT NOT NULL REFERENCES cart(id) ON DELETE CASCADE,
     product_id VARCHAR(100) NOT NULL,
     product_name VARCHAR(255) NOT NULL,
     unit_price DECIMAL(19, 2) NOT NULL,
@@ -38,8 +38,8 @@ CREATE TABLE cart_item (
 -- Orders table
 CREATE TABLE orders (
     id VARCHAR(50) PRIMARY KEY,
-    user_id INTEGER NOT NULL REFERENCES users(id),
-    cart_id INTEGER REFERENCES cart(id),
+    user_id BIGINT NOT NULL REFERENCES users(id),
+    cart_id BIGINT REFERENCES cart(id),
     status VARCHAR(50) NOT NULL DEFAULT 'DRAFT',
     subtotal DECIMAL(19, 2) NOT NULL DEFAULT 0,
     shipping_fee DECIMAL(19, 2) NOT NULL DEFAULT 0,
@@ -57,7 +57,7 @@ CREATE TABLE orders (
 
 -- Order items table
 CREATE TABLE order_item (
-    id SERIAL PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     order_id VARCHAR(50) NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
     product_id VARCHAR(100) NOT NULL,
     product_name VARCHAR(255) NOT NULL,
@@ -79,7 +79,7 @@ CREATE INDEX idx_order_item_order_id ON order_item(order_id);
 
 -- Idempotency table for payment callbacks
 CREATE TABLE payment_callback_log (
-    id SERIAL PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     order_id VARCHAR(50) NOT NULL REFERENCES orders(id),
     callback_reference VARCHAR(255) NOT NULL UNIQUE,
     callback_type VARCHAR(50) NOT NULL,

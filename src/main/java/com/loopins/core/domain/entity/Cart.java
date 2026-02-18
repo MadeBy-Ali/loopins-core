@@ -25,8 +25,11 @@ public class Cart {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
+
+    @Column(name = "session_id", length = 255)
+    private String sessionId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
@@ -78,6 +81,19 @@ public class Cart {
 
     public boolean isActive() {
         return this.status == CartStatus.ACTIVE;
+    }
+
+    public boolean isGuestCart() {
+        return sessionId != null && user == null;
+    }
+
+    public boolean isUserCart() {
+        return user != null && sessionId == null;
+    }
+
+    public void convertToUserCart(User user) {
+        this.user = user;
+        this.sessionId = null;
     }
 }
 

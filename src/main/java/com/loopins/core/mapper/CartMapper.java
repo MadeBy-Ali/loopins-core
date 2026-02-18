@@ -13,6 +13,7 @@ import java.util.List;
 public interface CartMapper {
 
     @Mapping(target = "userId", source = "user.id")
+    @Mapping(target = "sessionId", source = "sessionId")
     @Mapping(target = "subtotal", expression = "java(cart.calculateSubtotal())")
     @Mapping(target = "totalItems", expression = "java(cart.getTotalItemCount())")
     CartResponse toResponse(Cart cart);

@@ -18,6 +18,7 @@ public class CartResponse {
 
     private Long id;
     private Long userId;
+    private String sessionId;
     private CartStatus status;
     private List<CartItemResponse> items;
     private BigDecimal subtotal;
