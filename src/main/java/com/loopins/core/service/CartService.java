@@ -2,6 +2,7 @@ package com.loopins.core.service;
 
 import com.loopins.core.domain.entity.Cart;
 import com.loopins.core.domain.entity.CartItem;
+import com.loopins.core.domain.entity.Product;
 import com.loopins.core.domain.entity.User;
 import com.loopins.core.domain.enums.CartStatus;
 import com.loopins.core.dto.request.AddCartItemRequest;
@@ -12,6 +13,7 @@ import com.loopins.core.exception.ResourceNotFoundException;
 import com.loopins.core.mapper.CartMapper;
 import com.loopins.core.repository.CartItemRepository;
 import com.loopins.core.repository.CartRepository;
+import com.loopins.core.repository.ProductRepository;
 import com.loopins.core.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +29,7 @@ public class CartService {
     private final CartItemRepository cartItemRepository;
     private final UserRepository userRepository;
     private final CartMapper cartMapper;
+    private final ProductRepository productRepository;
 
     /**
      * Creates a new cart for a user or guest, or returns existing active cart.
@@ -191,15 +194,20 @@ public class CartService {
             existingItem.increaseQuantity(request.getQuantity());
             log.info("Updated existing item quantity: {}", existingItem.getQuantity());
         } else {
-            // Add new item
+            // Look up price from product catalog — never trust client-provided price
+            // Strip size suffix (e.g. "mbok-jamu-women-vest-001-XL" → "mbok-jamu-women-vest-001")
+            String baseProductId = request.getProductId().replaceAll("-[^-]+$", "");
+            Product product = productRepository.findByIdAndActiveTrue(baseProductId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Product", "id", baseProductId));
+
             CartItem newItem = CartItem.builder()
                     .productId(request.getProductId())
-                    .productName(request.getProductName())
-                    .unitPrice(request.getUnitPrice())
+                    .productName(product.getName())
+                    .unitPrice(product.getPrice())
                     .quantity(request.getQuantity())
                     .build();
             cart.addItem(newItem);
-            log.info("Added new item to cart");
+            log.info("Added new item to cart with server-side price: {}", product.getPrice());
         }
 
         Cart savedCart = cartRepository.save(cart);

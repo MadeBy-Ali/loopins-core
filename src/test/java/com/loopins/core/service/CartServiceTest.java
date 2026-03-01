@@ -128,8 +128,6 @@ class CartServiceTest {
     void addItem_WhenCartIsActive_ShouldAddItem() {
         AddCartItemRequest request = AddCartItemRequest.builder()
                 .productId("PROD-001")
-                .productName("Test Product")
-                .unitPrice(new BigDecimal("100000"))
                 .quantity(2)
                 .build();
 
@@ -149,8 +147,6 @@ class CartServiceTest {
 
         AddCartItemRequest request = AddCartItemRequest.builder()
                 .productId("PROD-001")
-                .productName("Test Product")
-                .unitPrice(new BigDecimal("100000"))
                 .quantity(2)
                 .build();
 
@@ -166,8 +162,6 @@ class CartServiceTest {
         CartItem existingItem = CartItem.builder()
                 .id(1L)
                 .productId("PROD-001")
-                .productName("Test Product")
-                .unitPrice(new BigDecimal("100000"))
                 .quantity(1)
                 .cart(testCart)
                 .build();
@@ -175,8 +169,6 @@ class CartServiceTest {
 
         AddCartItemRequest request = AddCartItemRequest.builder()
                 .productId("PROD-001")
-                .productName("Test Product")
-                .unitPrice(new BigDecimal("100000"))
                 .quantity(2)
                 .build();
 
