@@ -28,7 +28,8 @@ public class ServiceApiKeyFilter extends OncePerRequestFilter {
     // Endpoints that require service API key
     private static final List<String> PROTECTED_PATTERNS = List.of(
             "/api/orders/.*/payment-confirmed",
-            "/api/orders/.*/payment-failed"
+            "/api/orders/.*/payment-failed",
+            "/api/admin/.*"
     );
 
     @Override
