@@ -225,16 +225,15 @@ public class CheckoutService {
     }
 
     private BigDecimal getShippingQuote(CheckoutRequest request) {
-        // Check if shipping should be bypassed
+        // Check if shipping should be bypassed (shipping included in product price)
         if (Boolean.TRUE.equals(request.getBypassShipping())) {
-            log.info("Bypassing shipping service, using default shipping fee");
-            return new BigDecimal("15000");
+            log.info("Bypassing shipping service, shipping fee = 0");
+            return BigDecimal.ZERO;
         }
 
         if (request.getOriginCity() == null || request.getDestinationCity() == null) {
-            // Default shipping fee if cities not provided
             log.warn("Origin/destination cities not provided, using default shipping fee");
-            return new BigDecimal("15000"); // Default shipping fee
+            return new BigDecimal("15000");
         }
 
         try {
@@ -264,7 +263,7 @@ public class CheckoutService {
         Order.OrderBuilder orderBuilder = Order.builder()
                 .cart(cart)
                 .shippingAddress(request.getShippingAddress())
-                .shippingFee(request.getOriginCity() != null ? getShippingQuote(request) : new BigDecimal("15000"));
+                .shippingFee(getShippingQuote(request));
 
         // Set user or guest info
         if (user != null) {
