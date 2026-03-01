@@ -61,7 +61,13 @@ public class PaymentController {
     public ResponseEntity<ApiResponse<String>> handlePaymentCallback(
             @RequestBody Map<String, Object> notification) {
         log.info("POST /payments/callback - Received Midtrans notification");
-        paymentService.handlePaymentNotification(notification);
+        try {
+            paymentService.handlePaymentNotification(notification);
+        } catch (Exception e) {
+            // Always return 200 to Midtrans regardless of internal errors
+            // Midtrans will keep retrying if it receives non-200
+            log.error("Error processing payment notification: {}", e.getMessage());
+        }
         return ResponseEntity.ok(ApiResponse.success("OK", "Notification processed"));
     }
 }
