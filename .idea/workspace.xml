@@ -5,107 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26782203-552a-4f58-be6f-bd9cbdf94abd" name="Changes" comment="init commit">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BUILD_FIX.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUEST_CART_COMMANDS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUEST_CART_GUIDE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MIDTRANS_COMPARISON.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MIDTRANS_FIX.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PAYMENT_FLOW.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/QUICKSTART_NEW.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/QUICK_REFERENCE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/QUICK_REFERENCE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SETUP_SUMMARY.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SNAP_QUICKSTART.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SNAP_README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TESTING_GUIDE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/config/MidtransConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/controller/PaymentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/dto/response/MidtransSnapResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/service/MidtransPaymentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/service/PaymentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V2__Add_guest_cart_support.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V3__Add_guest_order_support.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/start-db.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/start-with-env.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/start.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test-api.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test-guest-cart.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test-snap-payment.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/loopins/core/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/controller/CartController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/loopins/core/domain/entity/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/domain/entity/Cart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/loopins/core/domain/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/domain/entity/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/loopins/core/dto/request/CheckoutRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/dto/request/CheckoutRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/loopins/core/dto/request/CreateCartRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/dto/request/CreateCartRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/loopins/core/dto/response/CartResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/dto/response/CartResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/loopins/core/mapper/CartMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/mapper/CartMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/loopins/core/repository/CartRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/repository/CartRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/loopins/core/service/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/service/CartService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/loopins/core/service/CheckoutService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/service/CheckoutService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loopins/core/client/FulfillmentClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/client/FulfillmentClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loopins/core/client/dto/EmailNotificationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/client/dto/EmailNotificationRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loopins/core/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/controller/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loopins/core/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/service/PaymentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V1__Initial_schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V1__Initial_schema.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/client/FulfillmentClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/client/FulfillmentClient.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/EmailNotificationRequest$EmailNotificationRequestBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/EmailNotificationRequest$EmailNotificationRequestBuilder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/EmailNotificationRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/EmailNotificationRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/PaymentInitiateRequest$PaymentInitiateRequestBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/PaymentInitiateRequest$PaymentInitiateRequestBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/PaymentInitiateRequest$PaymentItem$PaymentItemBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/PaymentInitiateRequest$PaymentItem$PaymentItemBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/PaymentInitiateRequest$PaymentItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/PaymentInitiateRequest$PaymentItem.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/PaymentInitiateRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/PaymentInitiateRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/ShippingQuoteResponse$ShippingQuoteResponseBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/ShippingQuoteResponse$ShippingQuoteResponseBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/ShippingQuoteResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/ShippingQuoteResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/controller/CartController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/controller/CartController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/domain/entity/Cart$CartBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/domain/entity/Cart$CartBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/domain/entity/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/domain/entity/Cart.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/domain/entity/CartItem$CartItemBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/domain/entity/CartItem$CartItemBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/domain/entity/Order$OrderBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/domain/entity/Order$OrderBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/domain/entity/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/domain/entity/Order.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/domain/entity/OrderItem$OrderItemBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/domain/entity/OrderItem$OrderItemBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/domain/entity/PaymentCallbackLog$PaymentCallbackLogBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/domain/entity/PaymentCallbackLog$PaymentCallbackLogBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/domain/entity/User$UserBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/domain/entity/User$UserBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/request/AddCartItemRequest$AddCartItemRequestBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/request/AddCartItemRequest$AddCartItemRequestBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/request/AddCartItemRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/request/AddCartItemRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/request/CheckoutRequest$CheckoutRequestBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/request/CheckoutRequest$CheckoutRequestBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/request/CheckoutRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/request/CheckoutRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/request/CreateCartRequest$CreateCartRequestBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/request/CreateCartRequest$CreateCartRequestBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/request/CreateCartRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/request/CreateCartRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/ApiResponse$ApiResponseBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/ApiResponse$ApiResponseBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/ApiResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/ApiResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/CartItemResponse$CartItemResponseBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/CartItemResponse$CartItemResponseBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/CartItemResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/CartItemResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/CartResponse$CartResponseBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/CartResponse$CartResponseBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/CartResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/CartResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/CheckoutResponse$CheckoutResponseBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/CheckoutResponse$CheckoutResponseBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/CheckoutResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/CheckoutResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/OrderItemResponse$OrderItemResponseBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/OrderItemResponse$OrderItemResponseBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/OrderItemResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/OrderItemResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/OrderResponse$OrderResponseBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/OrderResponse$OrderResponseBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/OrderResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/dto/response/OrderResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/mapper/CartMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/mapper/CartMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/mapper/CartMapperImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/mapper/CartMapperImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/repository/CartRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/repository/CartRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/service/CartService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/service/CartService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/service/CheckoutService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/service/CheckoutService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/service/OrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/service/OrderService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/db/migration/V1__Initial_schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db/migration/V1__Initial_schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/controller/PaymentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/controller/PaymentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/service/PaymentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/service/PaymentService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/loopins/core/mapper/CartMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-sources/annotations/com/loopins/core/mapper/CartMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/loopins/core/mapper/OrderMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-sources/annotations/com/loopins/core/mapper/OrderMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/loopins-core-1.0.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/loopins-core-1.0.0-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/loopins-core-1.0.0-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/loopins-core-1.0.0-SNAPSHOT.jar.original" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/2025-12-14T12-10-27_207-jvmRun1.dump" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/2025-12-14T12-10-27_207-jvmRun1.dumpstream" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.loopins.core.LoopinsCoreApplicationTests.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.loopins.core.service.CartServiceTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.loopins.core.LoopinsCoreApplicationTests.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.loopins.core.service.CartServiceTest.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -226,6 +146,11 @@
       <workItem from="1770091874536" duration="78000" />
       <workItem from="1770210541299" duration="1691000" />
       <workItem from="1771377610113" duration="4512000" />
+      <workItem from="1771387706057" duration="2077000" />
+      <workItem from="1771520807095" duration="14000" />
+      <workItem from="1771552738637" duration="612000" />
+      <workItem from="1772194170292" duration="747000" />
+      <workItem from="1772198842159" duration="7124000" />
     </task>
     <task id="LOCAL-00001" summary="init commit">
       <option name="closed" value="true" />

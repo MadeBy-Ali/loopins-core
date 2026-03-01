@@ -39,6 +39,18 @@ public class PaymentController {
 
 
     /**
+     * Midtrans Snap finish/unfinish/error redirect (browser redirect after payment)
+     */
+    @GetMapping("/callback/finish")
+    @Operation(summary = "Snap finish redirect", description = "Browser redirect URL after Snap payment completion")
+    public ResponseEntity<ApiResponse<String>> snapFinish(
+            @RequestParam(required = false) String order_id,
+            @RequestParam(required = false) String transaction_status) {
+        log.info("GET /payments/callback/finish - order_id={}, status={}", order_id, transaction_status);
+        return ResponseEntity.ok(ApiResponse.success(transaction_status, "Payment completed. Status: " + transaction_status));
+    }
+
+    /**
      * Midtrans payment notification callback
      */
     @PostMapping("/callback")

@@ -26,7 +26,7 @@ public interface FulfillmentClient {
     @Retry(name = "fulfillment")
     PaymentInitiateResponse initiatePayment(@RequestBody PaymentInitiateRequest request);
 
-    @PostMapping("/api/notifications/email")
+    @PostMapping("/api/emails/order-success")
     @CircuitBreaker(name = "fulfillment", fallbackMethod = "sendEmailNotificationFallback")
     @Retry(name = "fulfillment")
     void sendEmailNotification(@RequestBody EmailNotificationRequest request);

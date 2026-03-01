@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -13,9 +15,8 @@ public class EmailNotificationRequest {
 
     private String orderId;
     private String recipientEmail;
-    private String recipientName;
-    private String subject;
-    private String templateType; // ORDER_CREATED, PAYMENT_SUCCESS, ORDER_SHIPPED, etc.
-    private Object templateData;
+    private String customerName;
+    private BigDecimal totalAmount;
+    private String shippingAddress;
 }
 

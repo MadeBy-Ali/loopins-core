@@ -7,9 +7,11 @@ import com.loopins.core.exception.BusinessException;
 import com.loopins.core.exception.DuplicateRequestException;
 import com.loopins.core.exception.ResourceNotFoundException;
 import com.loopins.core.repository.OrderRepository;
+import com.loopins.core.event.OrderPaidEvent;
 import com.loopins.core.repository.PaymentCallbackLogRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +28,7 @@ public class PaymentService {
     private final MidtransPaymentService midtransPaymentService;
     private final OrderRepository orderRepository;
     private final PaymentCallbackLogRepository paymentCallbackLogRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     /**
      * Create Midtrans Snap payment for an order
@@ -77,16 +80,18 @@ public class PaymentService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new ResourceNotFoundException("Order", "id", orderId));
 
-        // Check for duplicate notification
-        if (paymentCallbackLogRepository.existsByCallbackReference(transactionId)) {
-            log.warn("Duplicate payment notification received for transaction: {}", transactionId);
+        // Check for duplicate notification (keyed by transactionId + status to allow
+        // pending → settlement transitions for the same transaction)
+        String callbackReference = transactionId + "_" + transactionStatus;
+        if (paymentCallbackLogRepository.existsByCallbackReference(callbackReference)) {
+            log.warn("Duplicate payment notification received for transaction: {}, status: {}", transactionId, transactionStatus);
             throw new DuplicateRequestException("Payment notification already processed");
         }
 
         // Log the callback
         PaymentCallbackLog callbackLog = new PaymentCallbackLog();
         callbackLog.setOrderId(orderId);
-        callbackLog.setCallbackReference(transactionId);
+        callbackLog.setCallbackReference(callbackReference);
         callbackLog.setCallbackType("MIDTRANS_NOTIFICATION");
         callbackLog.setPayload(notification.toString());
         paymentCallbackLogRepository.save(callbackLog);
@@ -118,5 +123,11 @@ public class PaymentService {
         }
 
         orderRepository.save(order);
+
+        // Publish event after save — listener fires after transaction commits
+        if ("settlement".equals(transactionStatus) ||
+                ("capture".equals(transactionStatus) && "accept".equals(fraudStatus))) {
+            eventPublisher.publishEvent(new OrderPaidEvent(this, order));
+        }
     }
 }

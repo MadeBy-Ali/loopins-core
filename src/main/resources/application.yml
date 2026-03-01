@@ -99,10 +99,10 @@ logging:
 springdoc:
   api-docs:
     path: /v3/api-docs
-    enabled: true
+    enabled: ${SWAGGER_ENABLED:true}
   swagger-ui:
     path: /swagger-ui.html
-    enabled: true
+    enabled: ${SWAGGER_ENABLED:true}
     operationsSorter: method
     tagsSorter: alpha
     displayRequestDuration: true
@@ -111,6 +111,11 @@ springdoc:
   show-actuator: true
   paths-to-match: /**
   packages-to-scan: com.loopins.core.controller
+
+# Admin Notifications
+admin:
+  notification:
+    email: ${ADMIN_EMAIL:admin@loopins.com}
 
 # Actuator
 management:
