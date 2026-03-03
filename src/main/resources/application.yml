@@ -60,6 +60,15 @@ resilience4j:
         waitDurationInOpenState: 30s
         failureRateThreshold: 50
         eventConsumerBufferSize: 10
+      fulfillment-email:
+        registerHealthIndicator: true
+        slidingWindowSize: 5
+        minimumNumberOfCalls: 3
+        permittedNumberOfCallsInHalfOpenState: 2
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 15s
+        failureRateThreshold: 60
+        eventConsumerBufferSize: 10
 
   retry:
     instances:
@@ -115,7 +124,7 @@ springdoc:
 # Admin Notifications
 admin:
   notification:
-    email: ${ADMIN_EMAIL:admin@loopins.com}
+    emails: ${ADMIN_EMAILS:support@loopinsstudio.com,loopins.std@gmail.com}
 
 # Actuator
 management:

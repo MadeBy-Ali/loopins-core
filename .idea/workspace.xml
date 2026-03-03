@@ -5,27 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26782203-552a-4f58-be6f-bd9cbdf94abd" name="Changes" comment="init commit">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/loopins/core/client/FulfillmentClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/client/FulfillmentClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/loopins/core/client/dto/EmailNotificationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/client/dto/EmailNotificationRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/loopins/core/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/controller/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/loopins/core/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loopins/core/service/PaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/client/FulfillmentClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/client/FulfillmentClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/EmailNotificationRequest$EmailNotificationRequestBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/EmailNotificationRequest$EmailNotificationRequestBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/EmailNotificationRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/client/dto/EmailNotificationRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/controller/PaymentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/controller/PaymentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/loopins/core/service/PaymentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/loopins/core/service/PaymentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/loopins/core/mapper/CartMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-sources/annotations/com/loopins/core/mapper/CartMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/loopins/core/mapper/OrderMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-sources/annotations/com/loopins/core/mapper/OrderMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/loopins-core-1.0.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/loopins-core-1.0.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/loopins-core-1.0.0-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/loopins-core-1.0.0-SNAPSHOT.jar.original" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +79,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15429688&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -125,7 +105,6 @@
     <attachedChunks>
       <set>
         <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.30387.90" />
       </set>
     </attachedChunks>
   </component>
@@ -150,7 +129,7 @@
       <workItem from="1771520807095" duration="14000" />
       <workItem from="1771552738637" duration="612000" />
       <workItem from="1772194170292" duration="747000" />
-      <workItem from="1772198842159" duration="7124000" />
+      <workItem from="1772198842159" duration="13828000" />
     </task>
     <task id="LOCAL-00001" summary="init commit">
       <option name="closed" value="true" />

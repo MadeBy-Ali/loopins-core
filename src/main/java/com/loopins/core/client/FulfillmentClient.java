@@ -27,7 +27,7 @@ public interface FulfillmentClient {
     PaymentInitiateResponse initiatePayment(@RequestBody PaymentInitiateRequest request);
 
     @PostMapping("/api/emails/order-success")
-    @CircuitBreaker(name = "fulfillment", fallbackMethod = "sendEmailNotificationFallback")
+    @CircuitBreaker(name = "fulfillment-email", fallbackMethod = "sendEmailNotificationFallback")
     @Retry(name = "fulfillment")
     void sendEmailNotification(@RequestBody EmailNotificationRequest request);
 
@@ -47,8 +47,9 @@ public interface FulfillmentClient {
     }
 
     default void sendEmailNotificationFallback(EmailNotificationRequest request, Throwable t) {
-        // Log the failure but don't fail the main flow
-        // Email notifications are not critical for order processing
+        org.slf4j.LoggerFactory.getLogger(FulfillmentClient.class)
+                .error("[EMAIL FALLBACK] Failed to send email notification for order: {}. " +
+                        "Recipient: {}. Cause: {}", request.getOrderId(), request.getRecipientEmail(), t.getMessage(), t);
     }
 }
 

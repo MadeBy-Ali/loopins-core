@@ -8,11 +8,13 @@ import com.loopins.core.dto.response.OrderResponse;
 import com.loopins.core.exception.BusinessException;
 import com.loopins.core.exception.DuplicateRequestException;
 import com.loopins.core.exception.ResourceNotFoundException;
+import com.loopins.core.event.OrderPaidEvent;
 import com.loopins.core.mapper.OrderMapper;
 import com.loopins.core.repository.OrderRepository;
 import com.loopins.core.repository.PaymentCallbackLogRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final PaymentCallbackLogRepository callbackLogRepository;
     private final OrderMapper orderMapper;
+    private final ApplicationEventPublisher eventPublisher;
 
     /**
      * Gets an order by ID.
@@ -84,6 +87,9 @@ public class OrderService {
 
         // Log the callback for idempotency
         saveCallbackLog(orderId, request, "PAYMENT_SUCCESS");
+
+        // Publish event so emails are sent via OrderPaidEventListener
+        eventPublisher.publishEvent(new OrderPaidEvent(this, savedOrder));
 
         log.info("Order {} marked as PAID", orderId);
         return orderMapper.toResponse(savedOrder);

@@ -10,6 +10,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -17,36 +21,56 @@ public class OrderPaidEventListener {
 
     private final FulfillmentClient fulfillmentClient;
 
-    @Value("${admin.notification.email:admin@loopins.com}")
-    private String adminEmail;
+    @Value("${admin.notification.emails:support@loopinsstudio.com,loopins.std@gmail.com}")
+    private String adminEmailsConfig;
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onOrderPaid(OrderPaidEvent event) {
         Order order = event.getOrder();
+        log.info("OrderPaidEvent received for order: {}", order.getId());
 
-        // 1. Notify admin
-        log.info("Sending admin notification for paid order: {}", order.getId());
-        fulfillmentClient.sendEmailNotification(EmailNotificationRequest.builder()
-                .orderId(order.getId())
-                .recipientEmail(adminEmail)
-                .customerName(order.getCustomerName())
-                .totalAmount(order.getTotalAmount())
-                .shippingAddress(order.getShippingAddress())
-                .build());
-        log.info("Admin notification sent for order: {}", order.getId());
+        List<String> adminEmails = Arrays.stream(adminEmailsConfig.split(","))
+                .map(String::trim)
+                .filter(e -> !e.isBlank())
+                .collect(Collectors.toList());
+
+        // 1. Notify each admin email
+        for (String adminEmail : adminEmails) {
+            log.info("Sending admin notification to {} for paid order: {}", adminEmail, order.getId());
+            try {
+                fulfillmentClient.sendEmailNotification(EmailNotificationRequest.builder()
+                        .orderId(order.getId())
+                        .recipientEmail(adminEmail)
+                        .customerName(order.getCustomerName())
+                        .totalAmount(order.getTotalAmount())
+                        .shippingAddress(order.getShippingAddress())
+                        .build());
+                log.info("Admin notification dispatched to {} for order: {}", adminEmail, order.getId());
+            } catch (Exception e) {
+                log.error("Failed to dispatch admin notification to {} for order {}: {}",
+                        adminEmail, order.getId(), e.getMessage(), e);
+            }
+        }
 
         // 2. Notify customer (if email is available)
         String customerEmail = order.getCustomerEmail();
         if (customerEmail != null && !customerEmail.isBlank()) {
-            log.info("Sending customer payment confirmation for order: {}", order.getId());
-            fulfillmentClient.sendEmailNotification(EmailNotificationRequest.builder()
-                    .orderId(order.getId())
-                    .recipientEmail(customerEmail)
-                    .customerName(order.getCustomerName())
-                    .totalAmount(order.getTotalAmount())
-                    .shippingAddress(order.getShippingAddress())
-                    .build());
-            log.info("Customer confirmation sent to: {}", customerEmail);
+            log.info("Sending customer payment confirmation to {} for order: {}", customerEmail, order.getId());
+            try {
+                fulfillmentClient.sendEmailNotification(EmailNotificationRequest.builder()
+                        .orderId(order.getId())
+                        .recipientEmail(customerEmail)
+                        .customerName(order.getCustomerName())
+                        .totalAmount(order.getTotalAmount())
+                        .shippingAddress(order.getShippingAddress())
+                        .build());
+                log.info("Customer confirmation dispatched to: {} for order: {}", customerEmail, order.getId());
+            } catch (Exception e) {
+                log.error("Failed to dispatch customer notification to {} for order {}: {}",
+                        customerEmail, order.getId(), e.getMessage(), e);
+            }
+        } else {
+            log.warn("No customer email found for order: {}, skipping customer notification", order.getId());
         }
     }
 }
