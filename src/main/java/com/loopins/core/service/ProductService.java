@@ -95,6 +95,14 @@ public class ProductService {
         return toResponse(saved);
     }
 
+    @Transactional
+    public void deleteProduct(String id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product", "id", id));
+        productRepository.delete(product);
+        log.info("Deleted product: {}", id);
+    }
+
     private ProductResponse toResponse(Product product) {
         return ProductResponse.builder()
                 .id(product.getId())

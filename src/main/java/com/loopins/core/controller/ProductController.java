@@ -74,4 +74,12 @@ public class ProductController {
         ProductResponse response = productService.toggleActive(id);
         return ResponseEntity.ok(ApiResponse.success(response, "Product status toggled"));
     }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a product by ID", description = "Permanently removes a product. Use toggle to just disable it.")
+    public ResponseEntity<ApiResponse<Void>> deleteProduct(@PathVariable String id) {
+        log.info("DELETE /admin/products/{}", id);
+        productService.deleteProduct(id);
+        return ResponseEntity.ok(ApiResponse.success(null, "Product deleted successfully"));
+    }
 }
