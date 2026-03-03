@@ -195,10 +195,8 @@ public class CartService {
             log.info("Updated existing item quantity: {}", existingItem.getQuantity());
         } else {
             // Look up price from product catalog — never trust client-provided price
-            // Strip size suffix (e.g. "mbok-jamu-women-vest-001-XL" → "mbok-jamu-women-vest-001")
-            String baseProductId = request.getProductId().replaceAll("-[^-]+$", "");
-            Product product = productRepository.findByIdAndActiveTrue(baseProductId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Product", "id", baseProductId));
+            Product product = productRepository.findByIdAndActiveTrue(request.getProductId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Product", "id", request.getProductId()));
 
             CartItem newItem = CartItem.builder()
                     .productId(request.getProductId())
