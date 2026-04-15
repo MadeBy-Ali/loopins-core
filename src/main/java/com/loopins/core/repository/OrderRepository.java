@@ -18,6 +18,9 @@ public interface OrderRepository extends JpaRepository<Order, String> {
     @Query("SELECT o FROM Order o LEFT JOIN FETCH o.items WHERE o.id = :id")
     Optional<Order> findByIdWithItems(@Param("id") String id);
 
+    @Query(value = "SELECT COUNT(*) FROM order_item WHERE order_id = :orderId", nativeQuery = true)
+    int countItemsByOrderId(@Param("orderId") String orderId);
+
     @Query("SELECT o FROM Order o WHERE o.user.id = :userId ORDER BY o.createdAt DESC")
     Page<Order> findByUserId(@Param("userId") Long userId, Pageable pageable);
 

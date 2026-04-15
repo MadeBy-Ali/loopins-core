@@ -29,24 +29,41 @@ public class OrderPaidEventListener {
     private String adminEmailsConfig;
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = true)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void onOrderPaid(OrderPaidEvent event) {
         String orderId = event.getOrder().getId();
         log.info("OrderPaidEvent received for order: {}", orderId);
 
+        // Direct DB count to verify items exist at all
+        int dbItemCount = orderRepository.countItemsByOrderId(orderId);
+        log.info(">>> DB item count for order {}: {}", orderId, dbItemCount);
+
         Order order = orderRepository.findByIdWithItems(orderId)
-                .orElseGet(() -> event.getOrder());
+                .orElseGet(() -> {
+                    log.warn(">>> findByIdWithItems returned empty for order {}, falling back to event order", orderId);
+                    return event.getOrder();
+                });
 
-        List<EmailNotificationRequest.OrderItemDetail> itemDetails = order.getItems().stream()
-                .map(item -> EmailNotificationRequest.OrderItemDetail.builder()
-                        .productName(item.getProductName())
-                        .quantity(item.getQuantity())
-                        .unitPrice(item.getUnitPrice())
-                        .build())
-                .collect(Collectors.toList());
+        List<EmailNotificationRequest.OrderItemDetail> itemDetails;
+        try {
+            itemDetails = order.getItems().stream()
+                    .map(item -> EmailNotificationRequest.OrderItemDetail.builder()
+                            .productName(item.getProductName())
+                            .quantity(item.getQuantity())
+                            .unitPrice(item.getUnitPrice())
+                            .build())
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            log.error(">>> Failed to map order items for {}: {}", orderId, e.getMessage(), e);
+            itemDetails = List.of();
+        }
 
-        log.info("Order {} has {} item(s) to include in email", orderId, itemDetails.size());
-        itemDetails.forEach(i -> log.debug("  - Item: {} x{} @ {}", i.getProductName(), i.getQuantity(), i.getUnitPrice()));
+        if (itemDetails.isEmpty()) {
+            log.warn(">>> WARNING: No items found for order {} (DB count={}). Email will have empty item table!", orderId, dbItemCount);
+        } else {
+            log.info(">>> Order {} has {} item(s) to include in email", orderId, itemDetails.size());
+            itemDetails.forEach(i -> log.info(">>>   - Item: {} x{} @ {}", i.getProductName(), i.getQuantity(), i.getUnitPrice()));
+        }
 
         List<String> adminEmails = Arrays.stream(adminEmailsConfig.split(","))
                 .map(String::trim)
