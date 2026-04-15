@@ -37,6 +37,20 @@ public class PaymentController {
         return ResponseEntity.ok(ApiResponse.success(response, "Payment token created"));
     }
 
+    /**
+     * Verify payment status for an order
+     */
+    @GetMapping("/verify/{orderId}")
+    @Operation(
+        summary = "Verify payment status",
+        description = "Returns the current payment status for an order"
+    )
+    public ResponseEntity<ApiResponse<Map<String, String>>> verifyPayment(
+            @Parameter(description = "Order ID") @PathVariable String orderId) {
+        log.info("GET /payments/verify/{}", orderId);
+        Map<String, String> result = paymentService.verifyPayment(orderId);
+        return ResponseEntity.ok(ApiResponse.success(result, "Payment status retrieved"));
+    }
 
     /**
      * Midtrans Snap finish/unfinish/error redirect (browser redirect after payment)

@@ -130,4 +130,16 @@ public class PaymentService {
             eventPublisher.publishEvent(new OrderPaidEvent(this, order));
         }
     }
+
+    /**
+     * Verify payment status for an order.
+     */
+    @Transactional(readOnly = true)
+    public Map<String, String> verifyPayment(String orderId) {
+        log.info("Verifying payment status for order: {}", orderId);
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order", "id", orderId));
+        String status = order.isPaid() ? "paid" : order.getStatus().name().toLowerCase();
+        return Map.of("orderId", orderId, "status", status);
+    }
 }

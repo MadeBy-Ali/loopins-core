@@ -3,10 +3,13 @@ package com.loopins.core.event;
 import com.loopins.core.client.FulfillmentClient;
 import com.loopins.core.client.dto.EmailNotificationRequest;
 import com.loopins.core.domain.entity.Order;
+import com.loopins.core.domain.entity.OrderItem;
+import com.loopins.core.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
@@ -20,14 +23,25 @@ import java.util.stream.Collectors;
 public class OrderPaidEventListener {
 
     private final FulfillmentClient fulfillmentClient;
+    private final OrderRepository orderRepository;
 
     @Value("${admin.notification.emails:support@loopinsstudio.com,loopins.std@gmail.com}")
     private String adminEmailsConfig;
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    @Transactional(readOnly = true)
     public void onOrderPaid(OrderPaidEvent event) {
-        Order order = event.getOrder();
+        Order order = orderRepository.findByIdWithItems(event.getOrder().getId())
+                .orElseGet(() -> event.getOrder());
         log.info("OrderPaidEvent received for order: {}", order.getId());
+
+        List<EmailNotificationRequest.OrderItemDetail> itemDetails = order.getItems().stream()
+                .map(item -> EmailNotificationRequest.OrderItemDetail.builder()
+                        .productName(item.getProductName())
+                        .quantity(item.getQuantity())
+                        .unitPrice(item.getUnitPrice())
+                        .build())
+                .collect(Collectors.toList());
 
         List<String> adminEmails = Arrays.stream(adminEmailsConfig.split(","))
                 .map(String::trim)
@@ -44,6 +58,7 @@ public class OrderPaidEventListener {
                         .customerName(order.getCustomerName())
                         .totalAmount(order.getTotalAmount())
                         .shippingAddress(order.getShippingAddress())
+                        .items(itemDetails)
                         .build());
                 log.info("Admin notification dispatched to {} for order: {}", adminEmail, order.getId());
             } catch (Exception e) {
@@ -63,6 +78,7 @@ public class OrderPaidEventListener {
                         .customerName(order.getCustomerName())
                         .totalAmount(order.getTotalAmount())
                         .shippingAddress(order.getShippingAddress())
+                        .items(itemDetails)
                         .build());
                 log.info("Customer confirmation dispatched to: {} for order: {}", customerEmail, order.getId());
             } catch (Exception e) {
