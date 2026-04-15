@@ -103,6 +103,7 @@ logging:
     com.loopins.core: DEBUG
     org.springframework.web: INFO
     feign: DEBUG
+    com.loopins.core.client.FulfillmentClient: DEBUG
 
 # SpringDoc OpenAPI / Swagger Configuration
 springdoc:
