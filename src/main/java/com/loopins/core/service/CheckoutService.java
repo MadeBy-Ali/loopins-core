@@ -35,6 +35,7 @@ public class CheckoutService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
     private final FulfillmentClient fulfillmentClient;
+    private final com.loopins.core.repository.ProductRepository productRepository;
 
     @Value("${server.port:8080}")
     private String serverPort;
@@ -259,7 +260,21 @@ public class CheckoutService {
         }
     }
 
+    private void validateStock(Cart cart) {
+        cart.getItems().forEach(cartItem -> {
+            com.loopins.core.domain.entity.Product product = productRepository
+                    .findByIdAndActiveTrue(cartItem.getProductId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Product", "id", cartItem.getProductId()));
+            if (cartItem.getQuantity() > product.getStock()) {
+                throw new BusinessException("Only " + product.getStock() + " unit(s) of \""
+                        + product.getName() + "\" left in stock");
+            }
+        });
+    }
+
     private Order createOrderFromCart(Cart cart, User user, CheckoutRequest request) {
+        validateStock(cart);
+
         Order.OrderBuilder orderBuilder = Order.builder()
                 .cart(cart)
                 .shippingAddress(request.getShippingAddress())

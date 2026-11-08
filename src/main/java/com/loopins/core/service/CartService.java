@@ -183,21 +183,28 @@ public class CartService {
             throw new BusinessException("Cannot modify a cart that has been checked out");
         }
 
+        // Look up product — never trust client-provided price, and needed for stock check
+        Product product = productRepository.findByIdAndActiveTrue(request.getProductId())
+                .orElseThrow(() -> new ResourceNotFoundException("Product", "id", request.getProductId()));
+
         // Check if item already exists in cart
         CartItem existingItem = cart.getItems().stream()
                 .filter(item -> item.getProductId().equals(request.getProductId()))
                 .findFirst()
                 .orElse(null);
 
+        int requestedTotalQuantity = request.getQuantity()
+                + (existingItem != null ? existingItem.getQuantity() : 0);
+        if (requestedTotalQuantity > product.getStock()) {
+            throw new BusinessException("Only " + product.getStock() + " unit(s) of \""
+                    + product.getName() + "\" left in stock");
+        }
+
         if (existingItem != null) {
             // Update quantity if product already in cart
             existingItem.increaseQuantity(request.getQuantity());
             log.info("Updated existing item quantity: {}", existingItem.getQuantity());
         } else {
-            // Look up price from product catalog — never trust client-provided price
-            Product product = productRepository.findByIdAndActiveTrue(request.getProductId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Product", "id", request.getProductId()));
-
             CartItem newItem = CartItem.builder()
                     .productId(request.getProductId())
                     .productName(product.getName())
@@ -262,6 +269,12 @@ public class CartService {
             cart.removeItem(item);
             cartItemRepository.delete(item);
         } else {
+            Product product = productRepository.findByIdAndActiveTrue(item.getProductId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Product", "id", item.getProductId()));
+            if (quantity > product.getStock()) {
+                throw new BusinessException("Only " + product.getStock() + " unit(s) of \""
+                        + product.getName() + "\" left in stock");
+            }
             item.updateQuantity(quantity);
         }
 
